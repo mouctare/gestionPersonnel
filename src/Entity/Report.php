@@ -2,11 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\ReportRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ReportRepository;
+use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
  * @ORM\Entity(repositoryClass=ReportRepository::class)
+ *  @ApiResource
  */
 class Report
 {
@@ -43,6 +45,11 @@ class Report
      * @ORM\JoinColumn(nullable=false)
      */
     private $idSite;
+
+    /**
+     * @ORM\Column(type="string", length=1000, nullable=true)
+     */
+    private $image;
 
     public function getId(): ?int
     {
@@ -105,6 +112,18 @@ class Report
     public function setIdSite(?Site $idSite): self
     {
         $this->idSite = $idSite;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
 
         return $this;
     }

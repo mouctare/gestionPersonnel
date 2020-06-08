@@ -2,11 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\AvailabilityRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\AvailabilityRepository;
+use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
  * @ORM\Entity(repositoryClass=AvailabilityRepository::class)
+ *  @ApiResource
  */
 class Availability
 {

@@ -2,11 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\PlanningRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\PlanningRepository;
+use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
  * @ORM\Entity(repositoryClass=PlanningRepository::class)
+ * * @ApiResource
  */
 class Planning
 {
