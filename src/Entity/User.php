@@ -1,8 +1,6 @@
 <?php
 
 namespace App\Entity;
-
-use App\Entity\Site;
 use App\Entity\Report;
 use App\Entity\Service;
 use App\Entity\Planning;
@@ -10,13 +8,23 @@ use App\Entity\Availability;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\UserRepository;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Core\Bridge\Doctrine\MongoDbOdm\Filter\OrderFilter;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
- * @ApiResource
+ * @ApiResource(
+ *  attributes={
+ *      "pagination_enabled"=true,
+ *      "pagination_items_per_page"=20       
+ * }
+ * )
+ * @ApiFilter(SearchFilter::class)
+ * @ApiFilter(OrderFilter::class)
  */
 class User implements UserInterface
 {
@@ -81,7 +89,7 @@ class User implements UserInterface
      public function __construct()
     {
         $this->plannings = new ArrayCollection();
-      //  $this->sites = new ArrayCollection();
+        //$this->sites = new ArrayCollection();
         $this->rapports = new ArrayCollection();
         $this->availabilities = new ArrayCollection();
         $this->services = new ArrayCollection();
@@ -232,36 +240,7 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * @return Collection|Site[]
-     */
-    public function getSites(): Collection
-    {
-        return $this->sites;
-    }
-
-    public function addSite(Site $site): self
-    {
-        if (!$this->sites->contains($site)) {
-            $this->sites[] = $site;
-            $site->setIdUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeSite(Site $site): self
-    {
-        if ($this->sites->contains($site)) {
-            $this->sites->removeElement($site);
-            // set the owning side to null (unless already changed)
-            if ($site->getIdUser() === $this) {
-                $site->setIdUser(null);
-            }
-        }
-
-        return $this;
-    }
+  
 
     /**
      * @return Collection|Report[]

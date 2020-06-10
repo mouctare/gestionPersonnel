@@ -4,11 +4,17 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\PlanningRepository;
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Core\Bridge\Doctrine\MongoDbOdm\Filter\OrderFilter;
 
 /**
  * @ORM\Entity(repositoryClass=PlanningRepository::class)
- * * @ApiResource
+ *  @ApiResource()
+ *  @ApiFilter(SearchFilter::class)
+ * @ApiFilter(OrderFilter::class)
+ * 
  */
 class Planning
 {

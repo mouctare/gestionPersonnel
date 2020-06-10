@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Entity;
-
+//use App\Entity\Planning;
+//use App\Entity\Report;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\SiteRepository;
 
